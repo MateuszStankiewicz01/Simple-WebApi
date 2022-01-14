@@ -5,16 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.util.Assert;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @NoArgsConstructor
 @Getter
 @Setter
+@Validated
 public class ProductValidator {
 
     @Size(min=1,max=100)
+    @NotNull
     private String m_name;
     @DecimalMin("0.00")
     private double m_price;

@@ -18,7 +18,7 @@ public class ExceptionHandler {
 
         ExceptionDetails details = new ExceptionDetails(new Date(),
                 exception.getMessage(), request.getDescription(false));
-        log.error("Global exception occurred:"+exception.getMessage());
+        log.error("Global exception occurred: {}",exception.getMessage());
         return new ResponseEntity<>(details, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -29,7 +29,7 @@ public class ExceptionHandler {
 
         ExceptionDetails details = new ExceptionDetails(new Date(),
                 exception.getMessage(), request.getDescription(false));
-        log.error("RuntimeException occurred:"+exception.getMessage());
+        log.error("RuntimeException occurred:{}",exception.getMessage());
         return new ResponseEntity<>(details, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -39,7 +39,7 @@ public class ExceptionHandler {
 
         ExceptionDetails details = new ExceptionDetails(new Date(),
                 exception.getMessage(), request.getDescription(false));
-        log.error("ServiceException occurred:"+exception.getMessage());
+        log.error("ServiceException occurred:{}",exception.getMessage());
         return new ResponseEntity<>(details, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

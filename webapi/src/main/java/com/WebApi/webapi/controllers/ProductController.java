@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     @PostMapping("/api/products")
-    public Long addProduct(@Valid @RequestBody ProductValidator model){
+    public long addProduct(@Valid @RequestBody ProductValidator model){
         return productService.addNewProduct(model);
     }
 

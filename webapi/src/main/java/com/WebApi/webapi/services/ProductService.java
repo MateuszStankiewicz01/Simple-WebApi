@@ -22,16 +22,16 @@ public class ProductService {
 
 
     public List<Product> getAllProducts() throws Exception {
-        log.info("getting all products | ProductService");
         List<Product> lst = productRepository.findAll();
         if(lst.size()==0){
             throw new ServiceException("None elements found");
         }
+        log.info("getting all products | ProductService");
         return lst;
     }
 
     public Product getProductById(long id) throws ServiceException {
-        log.info("getting product by id:"+id+" | ProductService");
+        log.info("getting product by id: {}| ProductService",id);
         if(productRepository.findById(id)!=null){
             return productRepository.findById(id);
         }
@@ -41,37 +41,30 @@ public class ProductService {
 
     }
 
-    public Long addNewProduct(ProductValidator model){
+    public long addNewProduct(ProductValidator model){
         log.info("adding new product | ProductService");
-        Product temp = new Product();
-        temp.setName(model.getM_name());
-        temp.setPrice(model.getM_price());
+        Product temp = new Product(model.getM_name(),model.getM_price());
         return productRepository.saveAndFlush(temp).getId();
 
     }
 
     public void updateProduct(long id, ProductValidator model) throws Exception {
-        log.info("updating product by id:"+id+" | ProductService");
+        log.info("updating product by id: {} | ProductService",id);
         Product product = productRepository.findById(id);
-        if(product != null){
-            product.setPrice(model.getM_price());
-            product.setName(model.getM_name());
-            productRepository.saveAndFlush(product);
-        }else{
+        if(product == null){
             throw new ServiceException("Product not found, given id:"+id);
         }
+        product.setPrice(model.getM_price());
+        product.setName(model.getM_name());
+        productRepository.saveAndFlush(product);
     }
 
     public void deleteProduct(long id) throws Throwable {
-        log.info("deleting product by id:"+id+" | ProductService");
-
-            if(productRepository.findById(id)!=null){
-                productRepository.deleteById(id);
-            }
-            else{
-                throw new ServiceException("Product not found, given id:"+id);
-            }
-
+        if(productRepository.findById(id)==null){
+            throw new ServiceException("Product not found, given id:"+id);
+        }
+        log.info("deleting product by id: {} | ProductService",id);
+        productRepository.deleteById(id);
 
     }
 }

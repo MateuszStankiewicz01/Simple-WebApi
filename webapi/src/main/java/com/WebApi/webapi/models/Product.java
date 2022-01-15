@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +19,12 @@ public class Product {
     private String name;
     @Column(name="price")
     private double price;
+
+    public Product(long nId,String nName, double nPrice){
+        id = nId;
+        name = nName;
+        price = nPrice;
+    }
 
     public Product(String nName, double nPrice){
         name = nName;
